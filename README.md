@@ -10,10 +10,12 @@ The name "rengu" comes from the Japanese word "renku" or "renga", both of which 
 * [rengu-dav](/prajna-io/rengu-dav) - A WebDAV server implementation of rengu
 * [rengu-scrape](/prajna-io/rengu-scrape) - Tools for scraping content from external sources, allowing use of rengu as an archive system 
 
-## Rengu Search Syntax
+## Rengu Specifier Syntax
 
+The goal of the specifier syntax is to provide something that is compatible with both web-based URLs and with normal Unix shell scripting.
+
+* `+` or `" "`(space) default operator
 * `/` AND
 * `^` OR
-* `+` AND
 * `-` NOT
-* ` ` (default operator, AND or OR)
+* `{}` (scope delimiter)
