@@ -6,9 +6,9 @@ The name "rengu" comes from the Japanese word "renku" or "renga", both of which 
 
 ## Structure of Rengu
 
-* [rengu-core](/prajna-io/rengu-core) - This package, which includes the basic CLI and local rengu data featureset
-* [rengu-dav](/prajna-io/rengu-dav) - A WebDAV server implementation of rengu
-* [rengu-scrape](/prajna-io/rengu-scrape) - Tools for scraping content from external sources, allowing use of rengu as an archive system 
+* [rengu-core](//prajna-io/rengu-core) - This package, which includes the basic CLI and local rengu data featureset
+* [rengu-dav](//prajna-io/rengu-dav) - A WebDAV server implementation of rengu
+* [rengu-scrape](//prajna-io/rengu-scrape) - Tools for scraping content from external sources, allowing use of rengu as an archive system 
 
 ## Rengu Specifier Syntax
 
