@@ -19,3 +19,43 @@ The goal of the specifier syntax is to provide something that is compatible with
 * `^` OR
 * `-` NOT
 * `{}` (scope delimiter)
+* `=` Equals operator
+* `:` Equals (with order and lemmatization)
+* `~` Graph operator
+* `*` Glob operator
+
+The following fields are accepted as bare terms:
+
+* ID
+* ISBN
+* OLID
+* words from Body, Title, Description, Comment, SubTitle, AlternateTitles, Name, AlternateNames (normalized to a-z and lower case)
+
+The following fields are lemmatized with order:
+
+* Body
+* Title
+* Description
+* Comment
+* SubTitle
+* AlternateTitles
+
+The following fields can be used for graph vectors:
+
+* By
+* Editor
+* Translator
+* Contributor
+* Creator (any of By, Editor, Translator, Contributor)
+* Source
+* References
+* SeeAlso
+* Related (any of the above)
+
+## Data Format
+
+The primary index and data are stored in a LMDB database. The `index` sub-database stores all the terms as keys and all the matching IDs as values. The `data` subdatabase stores all the IDs as values with msgpack values for the data. The `graph` sub-databaase stores all the IDs from->to as keys->values. The `rgraph` sub-database stores ID to<-from as keys<-values.
+
+The `index`, `graph`, and `rgraph` can all be re-built from `data`.
+
+Additional BLOB data is stored in a directory called 
