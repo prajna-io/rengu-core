@@ -1,6 +1,6 @@
 # Rengu Content Management System
 
-The rengu system is used to manage content sets. The intent is prove a rich content environment that puts metadata and content search capabilities first in order to support content data analytics.
+The rengu system is a content management system. Rengu puts metadata and content search capabilities first in order to support content data analytics.
 
 The name "rengu" comes from the Japanese word "renku" or "renga", both of which are linked verse poetry forms. Ther idea is that content, like renku/renga should be managed as a set of rich, interlinked pieces of information.
 
@@ -10,28 +10,34 @@ The name "rengu" comes from the Japanese word "renku" or "renga", both of which 
 * [rengu-dav](prajna-io/rengu-dav) - A WebDAV server implementation of rengu
 * [rengu-scrape](prajna-io/rengu-scrape) - Tools for scraping content from external sources, allowing use of rengu as an archive system 
 
+
+## Entry Points
+
+Rengu plugins are managed through python entry points. The following are the key entry points defining how plug-ins can be added
+to rengu.
+
+| Entry Point | Description |
+| ----------- | ----------- |
+| rengu_cli   | CLI command |
+| rengu_store | Storage for Rengu data |
+| rengu_map   | Map/Reduce processor for Rengu |
+| rengu_input | Input handler for Rengu |
+| rengu_output | Output handler for Rengu |
+
 ## Rengu Specifier Syntax
 
-The goal of the specifier syntax is to provide something that is compatible with both web-based URLs and with normal Unix shell scripting.
+Rengu records can be specified through a simple set syntax. Sets can be specified by bare terms and by key/value pairs. [TODO: content terms with order]
 
-* `+` or `" "`(space) default operator
-* `/` AND
-* `^` OR
-* `-` NOT
-* `{}` (scope delimiter)
-* `=` Equals operator
-* `:` Equals (with order and lemmatization)
-* `~` Graph operator
-* `*` Glob operator
+### Bare Terms
 
 The following fields are accepted as bare terms:
 
-* ID
+* ID (a UUID)
 * ISBN
-* OLID
-* words from Body, Title, Description, Comment, SubTitle, AlternateTitles, Name, AlternateNames (normalized to a-z and lower case)
+* OLID (OpenLibrary ID)
+* IAID (Archive.org ID)
 
-The following fields are lemmatized with order:
+In addition, words from the following fields are normalized to a-z lower case and included as bare terms:
 
 * Body
 * Title
@@ -39,6 +45,20 @@ The following fields are lemmatized with order:
 * Comment
 * SubTitle
 * AlternateTitles
+* Name
+* AlternateNames
+
+The following fields are lemmatized and included as bare terms.
+
+* Body
+* Title
+* Description
+* Comment
+* SubTitle
+* AlternateTitles
+
+### Key/Value Pairs
+
 
 The following fields can be used for graph vectors:
 
