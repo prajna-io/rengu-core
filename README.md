@@ -70,6 +70,7 @@ The following fields can be used for graph vectors:
 * Source
 * References
 * SeeAlso
+* Variant
 * Related (any of the above)
 
 ## Data Format
