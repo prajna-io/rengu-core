@@ -1,0 +1,2 @@
+class RenguOutputList:
+    pass

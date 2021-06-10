@@ -9,14 +9,20 @@ with open(path.join(PROJECT_ROOT, "README.md"), encoding="utf-8") as f:
 
 requires_extra = {
     "dev": ["GitPython", "pylint", "black"],
-    "core": [ "dpath",],
-    "input": [ "splitstream", "ruamel.yaml", "titlecase",],
+    "core": [
+        "dpath",
+    ],
+    "input": [
+        "splitstream",
+        "ruamel.yaml",
+        "titlecase",
+    ],
 }
 requires_extra["all"] = [m for v in requires_extra.values() for m in v]
 
 setup(
     name="rengu",
-    version="1.0",
+    version="6.0",
     description="Library and tools for managing content fragments with metadata",
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
@@ -29,21 +35,39 @@ setup(
         "Programming Language :: Python :: 3.9",
     ],
     packages=find_packages(),
-    install_requires=[
-        "Click",
-        "click_plugins"
-    ],
+    install_requires=["Click", "click_plugins"],
     extras_require=requires_extra,
     entry_points={
         "console_scripts": [
             "rengu=rengu.cli:cli",
         ],
         "rengu_cli": [
-            "show = rengu.cli.show:show"
+            "show = rengu.cli.show:show",
+            "load = rengu.cli.load:load",
+            "delete = rengu.cli.load:delete",
         ],
-        "rengu_store": [],
-        "rengu_map": [],
-        "rengu_input": [],
-        "rengu_output": [],
+        "rengu_store": [
+            "lmr = rengu.store.lmdb:RenguStoreLMDB_RO",
+            "lmw = rengu.store.lmdb:RenguStoreLMDB_RW",
+            "http =  rengu.store.http:RenguStoreHTTP",
+            "https =  rengu.store.http:RenguStoreHTTPS",
+            "xro = rengu.store.xapian:RenguStoreXapianRO",
+            "xrw = rengu.store.xapian:RenguStoreXapianRW",
+        ],
+        "rengu_map": [
+            "pass = rengu.map.pass:RenguMapPass",
+            "edit = rengu.map.edit:RenguMapEdit",
+        ],
+        "rengu_input": [
+            "json = rengu.io.json:RenguInputJson",
+            "yaml = rengu.io.yaml:RenguInputYaml",
+            "kv = rengu.io.kv:RenguInputKv",
+        ],
+        "rengu_output": [
+            "list = rengu.io.list:RenguOutputList",
+            "json = rengu.io.json:RenguInputJson",
+            "yaml = rengu.io.yaml:RenguInputYaml",
+            "kv = rengu.io.kv:RenguOutputKv",
+        ],
     },
 )
