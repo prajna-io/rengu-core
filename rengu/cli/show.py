@@ -8,9 +8,12 @@ from rengu.cli.common import *
 @click.pass_context
 @output_option
 @input_option
-def load(ctx: Context, output: str, input: str):
+@query_string_arguments
+def show(ctx: Context, output: str, input: str, query: list[str]):
     """Show matching rengu objects"""
 
-    print("SHOW")
-    print(f"Verbose: {ctx.obj['verbose']}")
-    print(f"BaseURI: {ctx.obj['baseuri']}")
+    out = output_handler(output)
+    store = storage_handler(ctx.obj["baseuri"])
+
+    for x in store.query(query):
+        out(x)

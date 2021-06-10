@@ -49,8 +49,8 @@ setup(
         "rengu_store": [
             "lmr = rengu.store.lmdb:RenguStoreLMDB_RO",
             "lmw = rengu.store.lmdb:RenguStoreLMDB_RW",
-            "http =  rengu.store.http:RenguStoreHTTP",
-            "https =  rengu.store.http:RenguStoreHTTPS",
+            "http =  rengu.store.http:RenguStoreHttp",
+            "https =  rengu.store.http:RenguStoreHttp",
             "xro = rengu.store.xapian:RenguStoreXapianRO",
             "xrw = rengu.store.xapian:RenguStoreXapianRW",
         ],
@@ -65,8 +65,8 @@ setup(
         ],
         "rengu_output": [
             "list = rengu.io.list:RenguOutputList",
-            "json = rengu.io.json:RenguInputJson",
-            "yaml = rengu.io.yaml:RenguInputYaml",
+            "json = rengu.io.json:RenguOutputJson",
+            "yaml = rengu.io.yaml:RenguOutputYaml",
             "kv = rengu.io.kv:RenguOutputKv",
         ],
     },

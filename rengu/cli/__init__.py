@@ -6,7 +6,7 @@ import click
 from click.core import Context
 from click_plugins import with_plugins
 
-from rengu.cli.common import ChoiceWithParam
+from rengu.cli.common import ChoiceWithParam, storage_option
 
 
 @with_plugins(iter_entry_points("rengu_cli"))
@@ -21,14 +21,7 @@ from rengu.cli.common import ChoiceWithParam
     help="Verbosity level [0=no messages, 3=all messages]",
     envvar="VERBOSE",
 )
-@click.option(
-    "-B",
-    "--base",
-    "baseuri",
-    help="URI to Rengu data Base",
-    envvar="RENGU_BASE",
-    type=ChoiceWithParam([x.name for x in iter_entry_points("rengu_store")]),
-)
+@storage_option
 def cli(ctx, verbose: int, baseuri: str):
     """A command line tool for Rengu home management"""
 
