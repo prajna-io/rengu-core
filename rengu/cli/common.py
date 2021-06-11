@@ -44,6 +44,7 @@ class ChoiceWithParam(click.Choice):
         )
 
 
+# Rengu data storage option
 storage_option = click.option(
     "-B",
     "--base",
@@ -53,8 +54,7 @@ storage_option = click.option(
     type=ChoiceWithParam([x.name for x in iter_entry_points("rengu_store")]),
 )
 
-query_string_arguments = click.argument("query", nargs=-1, required=True, type=str)
-
+# output handler option
 output_option = click.option(
     "-o",
     "--output",
@@ -63,7 +63,7 @@ output_option = click.option(
     type=ChoiceWithParam([x.name for x in iter_entry_points("rengu_output")]),
 )
 
-
+# Input handler option
 input_option = click.option(
     "-i",
     "--input",
@@ -72,9 +72,23 @@ input_option = click.option(
     type=ChoiceWithParam([x.name for x in iter_entry_points("rengu_input")]),
 )
 
+# Query string arguments
+# this is used for all CLI functions that run queries
+query_string_arguments = click.argument("query", nargs=-1, required=True, type=str)
+
 
 def storage_handler(name: str):
+    """[summary]
 
+    Args:
+        name (str): The name of the handler
+
+    Raises:
+        ModuleNotFoundError: If no matching module can be found in entry points
+
+    Returns:
+        RenguStorage: A rengu storage object
+    """
     proto = name.split(":", 1)[0]
 
     for entry in iter_entry_points("rengu_store"):
@@ -85,9 +99,20 @@ def storage_handler(name: str):
 
 
 def output_handler(name: str):
+    """Get a rengu output handler
+
+    Args:
+        name (str): name of the handler
+
+    Raises:
+        ModuleNotFoundError: If no matching module can be found in entry points
+
+    Returns:
+        RenguOutput: an output handler
+    """
 
     for entry in iter_entry_points("rengu_output"):
         if entry.name == name:
-            return entry.load()(name, "foo")
+            return entry.load()(name, entry.extras)
 
     raise ModuleNotFoundError(f"No loadable module for {name}")

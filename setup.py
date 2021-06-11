@@ -47,8 +47,8 @@ setup(
             "delete = rengu.cli.load:delete",
         ],
         "rengu_store": [
-            "lmr = rengu.store.lmdb:RenguStoreLMDB_RO",
-            "lmw = rengu.store.lmdb:RenguStoreLMDB_RW",
+            "lmr = rengu.store.lmdb:RenguStoreLmdbRo",
+            "lmw = rengu.store.lmdb:RenguStoreLmdbRw",
             "http =  rengu.store.http:RenguStoreHttp",
             "https =  rengu.store.http:RenguStoreHttp",
             "xro = rengu.store.xapian:RenguStoreXapianRO",

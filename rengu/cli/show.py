@@ -15,5 +15,5 @@ def show(ctx: Context, output: str, input: str, query: list[str]):
     out = output_handler(output)
     store = storage_handler(ctx.obj["baseuri"])
 
-    for x in store.query(query):
+    for x in store.query(query, with_data=True):
         out(x)
