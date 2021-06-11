@@ -111,8 +111,10 @@ def output_handler(name: str):
         RenguOutput: an output handler
     """
 
+    hand = name.split(":", 1)[0]
+
     for entry in iter_entry_points("rengu_output"):
-        if entry.name == name:
+        if entry.name == hand:
             return entry.load()(name, entry.extras)
 
     raise ModuleNotFoundError(f"No loadable module for {name}")

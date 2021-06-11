@@ -3,7 +3,7 @@ from io import TextIOBase
 from uuid import UUID
 from json import dumps
 
-from rengu.io import RenguOutput
+from rengu.io import RenguOutput, RenguInput
 
 
 class RenguInputJson:
@@ -11,12 +11,11 @@ class RenguInputJson:
 
 
 class RenguOutputJson(RenguOutput):
-    def __init__(self, name: str, extra: str, fd: TextIOBase = stdout):
+    def __init__(self, args: str, fd: TextIOBase = stdout):
 
-        self.name = name
-        self.extra = extra
+        self.args = args
         self.fd = fd
 
     def __call__(self, obj: [UUID, dict]):
 
-        print(dumps(obj), file=self.fd)
+        print(dumps(obj))

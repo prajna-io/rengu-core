@@ -6,10 +6,9 @@ from rengu.io import RenguOutput
 
 
 class RenguOutputList(RenguOutput):
-    def __init__(self, name: str, extra: str, fd: TextIOBase = stdout):
+    def __init__(self, args: str, fd: TextIOBase = stdout):
 
-        self.name = name
-        self.extra = extra
+        self.args = args
         self.fd = fd
 
     def __call__(self, obj: [UUID, dict]):
@@ -17,6 +16,6 @@ class RenguOutputList(RenguOutput):
         if isinstance(obj, UUID):
             print(obj, file=self.fd)
         elif isinstance(obj, dict):
-            print(obj.get("ID", ""), file=self.fd)
+            print(obj.get("ID", ""))
         else:
             print(obj, file=self.fd)

@@ -46,8 +46,7 @@ setup(
             "load = rengu.cli.load:load",
             "delete = rengu.cli.load:delete",
         ],
-        "rengu_store": [
-        ],
+        "rengu_store": [],
         "rengu_map": [
             "pass = rengu.map.pass:RenguMapPass",
             "edit = rengu.map.edit:RenguMapEdit",
