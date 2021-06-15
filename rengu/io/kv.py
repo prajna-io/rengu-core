@@ -15,6 +15,7 @@ ESC = str.maketrans(
         '"': r"\"",
         "\n": r"\n",
         "\r": r"\r",
+        "\t": r"\t",
     }
 )
 
