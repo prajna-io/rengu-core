@@ -115,6 +115,6 @@ def output_handler(name: str):
 
     for entry in iter_entry_points("rengu_output"):
         if entry.name == hand:
-            return entry.load()(name, entry.extras)
+            return entry.load()(arg=name)
 
     raise ModuleNotFoundError(f"No loadable module for {name}")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from sys import stdout
+from sys import stdout, stderr
 from io import TextIOBase
 from uuid import UUID
 from unicodedata import normalize
@@ -21,45 +21,39 @@ ESC = str.maketrans(
 
 
 class RenguOutputKv(RenguOutput):
-    def __init__(self, args: str, fd: TextIOBase = stdout):
+    def __init__(self, arg: str, fd: TextIOBase = stdout):
 
-        self.args = args
-        self.fd = fd
+        super().__init__(arg=arg, fd=fd)
 
         self.count = 0
-        self.extra = []
-
-        more_args = args.split(":", 1)
-        if len(more_args) == 2:
-            self.extra = more_args[1].split(",")
 
     def __call__(self, obj: [UUID, dict]):
 
         # special case of UUID only
         if isinstance(obj, UUID):
-            print(f"ID={obj}\n", file=self.fd)
+            print(f"ID={obj}\n", file=self.fd, flush=True)
             return
 
         # Deep Recurse
         def _deep(prefix, obj):
 
             if isinstance(obj, dict):
-                print(f"{prefix} = {{}};")
+                print(f"{prefix} = {{}};", file=self.fd, flush=True)
                 for k in obj:
                     _deep(prefix + "." + k, obj[k])
 
             elif isinstance(obj, list):
-                print(f"{prefix} = [];")
+                print(f"{prefix} = [];", file=self.fd, flush=True)
                 for i, v in enumerate(obj):
                     _deep(prefix + "[" + str(i) + "]", v)
 
             elif isinstance(obj, (str, int, float)):
                 # s = normalize("NFKD", str(obj).translate(ESC))
                 s = str(obj).translate(ESC)
-                print(f'{prefix} = "{s}";')
+                print(f'{prefix} = "{s}";', file=self.fd, flush=True)
 
             else:
-                print(f"UNKNOWN {prefix}={obj};")
+                print(f"UNKNOWN {prefix} with { type(obj) };", file=stderr)
 
         start_prefix = f"[{self.count}]"
 

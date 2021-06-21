@@ -35,6 +35,7 @@ def cli(ctx, verbose: int, baseuri: str):
 def info(ctx: Context):
     """Show basic information about Rengu environment"""
 
-    print(type(ctx))
-    print(f"Verbose: {ctx.obj['verbose']}")
-    print(f"BaseURI: {ctx.obj['baseuri']}")
+    if ctx.obj["verbose"]:
+        print(f"VERBOSE={ctx.obj['verbose']}")
+
+    print(f"RENGU_BASE={ctx.obj['baseuri']}")

@@ -17,6 +17,16 @@ class RenguStore:
     def delete(self, id: UUID) -> UUID:
         raise RenguStorageError(f"Delete is not implemented in {__class__}")
 
+    class ResultSet(Set):
+        def __init__(self, rengu_store, term: str, result: list[str] = None):
+            pass
+
+        def __iter__(self):
+            raise RenguStorageError(f"__iter__ is not implemented in {__class__}")
+
+        def __next__(self):
+            raise RenguStorageError(f"__next__ is not implemented in {__class__}")
+
     def query(
         self,
         queryterms: list[str],
@@ -90,13 +100,3 @@ class RenguStore:
             return result
 
         return _parse()
-
-    class ResultSet(Set):
-        def __init__(self, rengu_store, term: str, result: list[str] = None):
-            pass
-
-        def __iter__(self):
-            raise RenguStorageError(f"__iter__ is not implemented in {__class__}")
-
-        def __next__(self):
-            raise RenguStorageError(f"__next__ is not implemented in {__class__}")

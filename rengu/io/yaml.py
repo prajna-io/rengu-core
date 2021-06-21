@@ -44,10 +44,9 @@ def yaml_decode(text):
 
 
 class RenguOutputYaml(RenguOutput):
-    def __init__(self, args: str, fd: TextIOBase = stdout):
+    def __init__(self, arg: str, fd: TextIOBase = stdout):
 
-        self.args = args
-        self.fd = fd
+        super().__init__(arg=arg, fd=fd)
 
         self._yaml = ruamel.yaml.YAML()
 

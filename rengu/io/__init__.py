@@ -1,4 +1,5 @@
 from io import TextIOBase
+from uuid import UUID
 
 
 class RenguOutputError(Exception):
@@ -6,12 +7,47 @@ class RenguOutputError(Exception):
 
 
 class RenguOutput:
-    def __init__(self, args: str, fd: TextIOBase):
+    """Base class for output"""
 
-        self.args = args
+    def __init__(self, arg: str, fd: TextIOBase):
+        """Create a output object
 
-        raise RenguOutputError(f"Unimplemented output handler {__class__} for {args}")
+        Args:
+            arg (str): [description]
+            fd (TextIOBase): [description]
+        """
+
+        # common arguments
+        self.arg = arg
+        self.fd = fd
+
+        # extended extra arguments
+        self.extra = []
+        more_args = arg.split(":", 1)
+        if len(more_args) == 2:
+            self.extra = more_args[1].split(",")
+
+        for x in self.extra:
+            if x.startswith("file="):
+                fname = x.split("=")[1]
+                self.fd = open(fname, "w")
+                break
+
+    def __call__(self, obj: [UUID, dict]):
+        raise RenguOutputError(
+            f"Unimplemented output handler {__class__} for {self.arg}"
+        )
 
 
 class RenguInput:
-    pass
+    """Base class for input"""
+
+    def __init__(self, arg: str, fd: TextIOBase):
+
+        self.arg = arg
+        self.fd = fd
+
+    def __call__(self, obj: [UUID, dict]):
+        raise RenguOutputError(
+            f"Unimplemented input handler {__class__} for {self.arg}"
+        )
