@@ -28,33 +28,19 @@ class RenguStore:
             raise RenguStorageError(f"__next__ is not implemented in {__class__}")
 
     def query(
-        self,
-        queryterms: list[str],
-        default_operator: str = "&",
-        result: "RenguStore.ResultSet" = None,
+        self, args: list[str], default_operator: str = "&", with_data: bool = False
     ):
-        """[summary]
-
-        Args:
-            queryterms (str[]): An array of query terms
-            default_operator (str, optional): The default operator for the query. Defaults to "&".
-
-        Raises:
-            RenguStorageError: Cannot parse the query
-
-        Returns:
-            ResultSet: The resulting set of matching values
-        """
 
         # last term is None
-        queryterms.append(None)
+        args = [*args]
+        args.append(None)
 
-        def _parse(depth: int = 0):
+        def _parse(depth=0):
 
             current_operator = None
             result = None
 
-            while q := queryterms.pop(0):
+            while q := args.pop(0):
 
                 r = None
 
@@ -74,7 +60,7 @@ class RenguStore:
 
                 # standard resultset
                 else:
-                    r = ResultSet(self, q)
+                    r = self.ResultSet(self, q)
 
                 # Run the query operation
                 if not current_operator:
