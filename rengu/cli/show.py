@@ -17,7 +17,10 @@ def show(ctx: Context, output: str, input: str, query: list[str]):
 
     q = store.query(query, with_data=True)
     for x in q:
-        out(x)
+        if output.startswith("list"):
+            out(x)
+        else:
+            out(store.get(x))
 
     if ctx.obj["verbose"]:
         print(q)

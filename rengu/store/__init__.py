@@ -86,3 +86,6 @@ class RenguStore:
             return result
 
         return _parse()
+
+    def get(self, id: UUID):
+        raise RenguStorageError(f"get is not implemented in {__class__}")
